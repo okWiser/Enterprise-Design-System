@@ -1,42 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 
-// Inline tokens for now to avoid import issues
-const colors = {
-  primary: {
-    50: '#f0f9ff',
-    500: '#0ea5e9',
-    600: '#0284c7',
-  },
-  neutral: {
-    50: '#f8fafc',
-    100: '#f1f5f9',
-    200: '#e2e8f0',
-    900: '#0f172a',
-  },
-};
-
-const typography = {
-  fontFamily: {
-    sans: ['Inter', 'system-ui', 'sans-serif'],
-  },
-  fontSize: {
-    sm: '0.875rem',
-    base: '1rem',
-    lg: '1.125rem',
-  },
-  fontWeight: {
-    medium: 500,
-  }
-};
-
-const spacing = {
-  2: '0.5rem',
-  3: '0.75rem',
-  4: '1rem',
-  6: '1.5rem',
-};
-
 export interface ButtonProps {
   variant?: 'primary' | 'secondary' | 'outline';
   size?: 'sm' | 'md' | 'lg';
@@ -45,55 +9,38 @@ export interface ButtonProps {
   onClick?: () => void;
 }
 
-const StyledButton = styled.button<ButtonProps>`
-  font-family: ${typography.fontFamily.sans.join(', ')};
-  font-weight: ${typography.fontWeight.medium};
-  border-radius: ${spacing[2]};
+const StyledButton = styled.button<{ $variant: string; $size: string }>`
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 500;
+  border-radius: 0.5rem;
   border: 1px solid transparent;
   cursor: pointer;
   transition: all 0.2s ease;
-
-  ${({ size = 'md' }) => {
-    const sizes = {
-      sm: { padding: `${spacing[2]} ${spacing[3]}`, fontSize: typography.fontSize.sm },
-      md: { padding: `${spacing[3]} ${spacing[4]}`, fontSize: typography.fontSize.base },
-      lg: { padding: `${spacing[4]} ${spacing[6]}`, fontSize: typography.fontSize.lg },
+  
+  /* Size styles */
+  padding: ${props => props.$size === 'sm' ? '0.5rem 0.75rem' : props.$size === 'lg' ? '1rem 1.5rem' : '0.75rem 1rem'};
+  font-size: ${props => props.$size === 'sm' ? '0.875rem' : props.$size === 'lg' ? '1.125rem' : '1rem'};
+  
+  /* Variant styles */
+  background-color: ${props => 
+    props.$variant === 'secondary' ? '#f1f5f9' : 
+    props.$variant === 'outline' ? 'transparent' : 
+    '#0ea5e9'
+  };
+  color: ${props => 
+    props.$variant === 'secondary' ? '#0f172a' : 
+    props.$variant === 'outline' ? '#0ea5e9' : 
+    'white'
+  };
+  border-color: ${props => props.$variant === 'outline' ? '#0ea5e9' : 'transparent'};
+  
+  &:hover:not(:disabled) {
+    background-color: ${props => 
+      props.$variant === 'secondary' ? '#e2e8f0' : 
+      props.$variant === 'outline' ? '#f0f9ff' : 
+      '#0284c7'
     };
-    return `
-      padding: ${sizes[size].padding};
-      font-size: ${sizes[size].fontSize};
-    `;
-  }}
-
-  ${({ variant = 'primary' }) => {
-    const variants = {
-      primary: {
-        background: colors.primary[500],
-        color: 'white',
-        hover: colors.primary[600],
-      },
-      secondary: {
-        background: colors.neutral[100],
-        color: colors.neutral[900],
-        hover: colors.neutral[200],
-      },
-      outline: {
-        background: 'transparent',
-        color: colors.primary[500],
-        border: colors.primary[500],
-        hover: colors.primary[50],
-      },
-    };
-    return `
-      background-color: ${variants[variant].background};
-      color: ${variants[variant].color};
-      ${variant === 'outline' ? `border-color: ${variants[variant].border};` : ''}
-      
-      &:hover:not(:disabled) {
-        background-color: ${variants[variant].hover};
-      }
-    `;
-  }}
+  }
 
   &:disabled {
     opacity: 0.5;
@@ -101,6 +48,10 @@ const StyledButton = styled.button<ButtonProps>`
   }
 `;
 
-export const Button: React.FC<ButtonProps> = ({ children, ...props }) => {
-  return <StyledButton {...props}>{children}</StyledButton>;
+export const Button: React.FC<ButtonProps> = ({ variant = 'primary', size = 'md', children, ...props }) => {
+  return (
+    <StyledButton $variant={variant} $size={size} {...props}>
+      {children}
+    </StyledButton>
+  );
 };
