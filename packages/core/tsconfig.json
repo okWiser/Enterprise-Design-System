@@ -19,5 +19,10 @@
   },
   "include": [
     "src"
+  ],
+  "exclude": [
+    "**/*.test.tsx",
+    "**/*.test.ts",
+    "**/__tests__/**"
   ]
 }

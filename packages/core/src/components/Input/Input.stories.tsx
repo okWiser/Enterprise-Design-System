@@ -5,7 +5,7 @@ const meta: Meta<typeof Input> = {
   title: 'Components/Input',
   component: Input,
   parameters: { layout: 'centered' },
-  tags: ['autodocs'],
+
   argTypes: {
     variant: { control: { type: 'select' }, options: ['outline', 'filled'] },
     size: { control: { type: 'select' }, options: ['sm', 'md', 'lg'] },

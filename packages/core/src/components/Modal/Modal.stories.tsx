@@ -7,7 +7,7 @@ const meta: Meta<typeof Modal> = {
   title: 'Components/Modal',
   component: Modal,
   parameters: { layout: 'centered' },
-  tags: ['autodocs'],
+
 };
 
 export default meta;

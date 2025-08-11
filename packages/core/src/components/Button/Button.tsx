@@ -7,6 +7,11 @@ export interface ButtonProps {
   disabled?: boolean;
   children: React.ReactNode;
   onClick?: () => void;
+  type?: 'button' | 'submit' | 'reset';
+  id?: string;
+  className?: string;
+  'aria-label'?: string;
+  role?: string;
 }
 
 const StyledButton = styled.button<{ $variant: string; $size: string }>`
@@ -17,11 +22,9 @@ const StyledButton = styled.button<{ $variant: string; $size: string }>`
   cursor: pointer;
   transition: all 0.2s ease;
   
-  /* Size styles */
   padding: ${props => props.$size === 'sm' ? '0.5rem 0.75rem' : props.$size === 'lg' ? '1rem 1.5rem' : '0.75rem 1rem'};
   font-size: ${props => props.$size === 'sm' ? '0.875rem' : props.$size === 'lg' ? '1.125rem' : '1rem'};
   
-  /* Variant styles */
   background-color: ${props => 
     props.$variant === 'secondary' ? '#f1f5f9' : 
     props.$variant === 'outline' ? 'transparent' : 

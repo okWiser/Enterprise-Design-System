@@ -5,14 +5,12 @@ const HeadingMeta: Meta<typeof Heading> = {
   title: 'Components/Typography/Heading',
   component: Heading,
   parameters: { layout: 'centered' },
-  tags: ['autodocs'],
 };
 
 const TextMeta: Meta<typeof Text> = {
   title: 'Components/Typography/Text',
   component: Text,
   parameters: { layout: 'centered' },
-  tags: ['autodocs'],
 };
 
 export default HeadingMeta;

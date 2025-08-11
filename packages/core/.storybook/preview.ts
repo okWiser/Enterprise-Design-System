@@ -1,5 +1,6 @@
 import type { Preview } from '@storybook/react';
 
+// Disable docs to avoid theme errors
 const preview: Preview = {
   parameters: {
     actions: { argTypesRegex: '^on[A-Z].*' },
@@ -10,7 +11,7 @@ const preview: Preview = {
       },
     },
     docs: {
-      theme: undefined,
+      disable: true,
     },
   },
 };
